@@ -10,6 +10,7 @@ The server receives webcam frames via WebSocket and emits status updates in real
 """
 
 import base64
+import os
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -25,10 +26,13 @@ from flask_jwt_extended import (
 
 # Initialize Flask app with CORS support
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'sbms_secret_key_2024'
-app.config['JWT_SECRET_KEY'] = 'sbms_jwt_secret_key_2024'  # Change in production!
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'wbms_secret_key_dev')
+app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'wbms_jwt_secret_key_dev')
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)
-CORS(app, origins=["http://localhost:3000"], supports_credentials=True)
+
+# Configure CORS for both local development and production
+cors_origins = os.environ.get('CORS_ORIGINS', 'http://localhost:3000').split(',')
+CORS(app, origins=cors_origins, supports_credentials=True)
 
 # Initialize JWT Manager
 jwt = JWTManager(app)
