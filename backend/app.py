@@ -46,15 +46,22 @@ socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 # Simple dict to store users: { email: { 'password_hash': '...', 'name': '...' } }
 users_db = {}
 
-# Initialize MediaPipe Face Mesh
+# Initialize MediaPipe Face Mesh - LAZY LOADING to reduce memory on startup
 # Face Mesh provides 468 facial landmarks for precise face tracking
 mp_face_mesh = mp.solutions.face_mesh
-face_mesh = mp_face_mesh.FaceMesh(
-    max_num_faces=1,
-    refine_landmarks=True,  # Includes iris landmarks for better eye tracking
-    min_detection_confidence=0.5,
-    min_tracking_confidence=0.5
-)
+face_mesh = None  # Will be initialized on first use
+
+def get_face_mesh():
+    """Lazy initialization of MediaPipe Face Mesh to reduce memory on startup."""
+    global face_mesh
+    if face_mesh is None:
+        face_mesh = mp_face_mesh.FaceMesh(
+            max_num_faces=1,
+            refine_landmarks=False,  # Disabled to reduce memory
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5
+        )
+    return face_mesh
 
 # =============================================================================
 # TEMPORAL DETECTION COUNTERS
@@ -344,8 +351,8 @@ def process_frame(frame_data):
         # Convert BGR to RGB for MediaPipe
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         
-        # Process frame with MediaPipe Face Mesh
-        results = face_mesh.process(rgb_frame)
+        # Process frame with MediaPipe Face Mesh (lazy loaded)
+        results = get_face_mesh().process(rgb_frame)
         
         if not results.multi_face_landmarks:
             # No face detected
