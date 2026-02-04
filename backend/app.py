@@ -1,5 +1,5 @@
 """
-Student Behavior Monitoring System - Backend
+Webcam Behavior Analytics - Backend
 =============================================
 A Flask server that uses MediaPipe Face Mesh to detect:
 - Drowsiness (via Eye Aspect Ratio - EAR)
@@ -568,7 +568,7 @@ def get_current_user():
 @app.route('/')
 def index():
     """Health check endpoint."""
-    return {'status': 'Server is running', 'message': 'Student Behavior Monitoring System API'}
+    return {'status': 'Server is running', 'message': 'Webcam Behavior Analytics API'}
 
 
 # =============================================================================
@@ -577,7 +577,7 @@ def index():
 
 if __name__ == '__main__':
     print("=" * 60)
-    print("Student Behavior Monitoring System - Backend Server")
+    print("Webcam Behavior Analytics - Backend Server")
     print("=" * 60)
     print("Starting server on http://localhost:5000")
     print("Waiting for frontend connection...")

@@ -1,7 +1,7 @@
 {
-    "name": "sbms-frontend",
+    "name": "webcam-behavior-analytics-ui",
     "version": "1.0.0",
-    "description": "Student Behavior Monitoring System - React Frontend",
+    "description": "Webcam Behavior Analytics - Real-time drowsiness and distraction detection",
     "private": true,
     "dependencies": {
         "react": "^18.2.0",
