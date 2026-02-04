@@ -1,5 +1,5 @@
 /**
- * Student Behavior Monitoring System - React Frontend
+ * Webcam Behaviour Monitoring System - React Frontend
  * =====================================================
  * 
  * A real-time dashboard that:
@@ -141,8 +141,8 @@ function App() {
      * Check for existing login on mount
      */
     useEffect(() => {
-        const token = localStorage.getItem('sbms_auth_token');
-        const savedUser = localStorage.getItem('sbms_user');
+        const token = localStorage.getItem('wbms_auth_token');
+        const savedUser = localStorage.getItem('wbms_user');
         if (token && savedUser) {
             setIsLoggedIn(true);
             setUser(JSON.parse(savedUser));
@@ -205,8 +205,8 @@ function App() {
             }
 
             // Store token and user info
-            localStorage.setItem('sbms_auth_token', data.access_token);
-            localStorage.setItem('sbms_user', JSON.stringify(data.user));
+            localStorage.setItem('wbms_auth_token', data.access_token);
+            localStorage.setItem('wbms_user', JSON.stringify(data.user));
 
             setUser(data.user);
             setIsLoggedIn(true);
@@ -263,8 +263,8 @@ function App() {
      * Logout handler
      */
     const handleLogout = () => {
-        localStorage.removeItem('sbms_auth_token');
-        localStorage.removeItem('sbms_user');
+        localStorage.removeItem('wbms_auth_token');
+        localStorage.removeItem('wbms_user');
         setIsLoggedIn(false);
         setUser(null);
 
@@ -357,9 +357,9 @@ function App() {
                 <div className="header-left">
                     <div className="logo">
                         <span className="logo-icon">👁️</span>
-                        <span className="logo-text">SBMS</span>
+                        <span className="logo-text">WBMS</span>
                     </div>
-                    <span className="header-subtitle">Student Behavior Monitoring System</span>
+                    <span className="header-subtitle">Webcam Behaviour Monitoring System</span>
                 </div>
                 <div className="header-right">
                     <div className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
@@ -524,7 +524,7 @@ function App() {
 
             {/* Footer */}
             <footer className="footer">
-                <p>Student Behavior Monitoring System • Powered by MediaPipe & React</p>
+                <p>Webcam Behaviour Monitoring System • Powered by MediaPipe & React</p>
             </footer>
         </div>
     );
