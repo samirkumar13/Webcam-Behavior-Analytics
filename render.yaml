@@ -28,10 +28,7 @@ services:
     staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
-        fromService:
-          name: webcam-behavior-backend
-          type: web
-          property: hostURL
+        value: https://webcam-behavior-backend.onrender.com
     headers:
       - path: /*
         name: Cache-Control
