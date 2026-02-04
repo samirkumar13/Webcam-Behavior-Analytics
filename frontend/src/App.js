@@ -26,9 +26,9 @@ import {
 } from 'recharts';
 import './App.css';
 
-// Backend server URL
-const API_URL = 'http://localhost:5000';
-const SOCKET_SERVER_URL = 'http://localhost:5000';
+// Backend server URL - uses environment variable in production, localhost for development
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const SOCKET_SERVER_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 // Maximum data points to show in chart
 const MAX_CHART_POINTS = 30;

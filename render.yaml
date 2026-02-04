@@ -18,3 +18,25 @@ services:
       - key: JWT_SECRET_KEY
         generateValue: true
     plan: free
+
+  # Frontend React Static Site
+  - type: web
+    name: webcam-behavior-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          name: webcam-behavior-backend
+          type: web
+          property: hostURL
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
